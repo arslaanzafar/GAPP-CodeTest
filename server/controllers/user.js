@@ -65,7 +65,9 @@ export const updateUser = async (req, res) => {
 
     try {
 
-        const { userID, name } = req.body
+        const { name } = req.body
+
+        const { userID } = req.params
 
         if (userID) {
 

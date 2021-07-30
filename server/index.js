@@ -4,6 +4,9 @@ import mongoose from 'mongoose'
 import env from 'dotenv'
 
 import UserRouter from "./routes/user.js"
+import TeamRouter from "./routes/team.js"
+import DepartmentRouter from "./routes/department.js"
+
 
 
 env.config()
@@ -18,6 +21,8 @@ app.get('/', function (req, res) {
  })
 
  app.use('/', UserRouter)
+ app.use('/', TeamRouter)
+ app.use('/', DepartmentRouter)
 
 
 const CONNECTION_URL = process.env.CONNECTION_URL
