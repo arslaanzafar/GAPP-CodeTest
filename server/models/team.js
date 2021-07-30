@@ -2,18 +2,15 @@ import mongoose from 'mongoose'
 
 
 const TeamSchema = new mongoose.Schema({
-    team_id: {
-        type: Integer,
-        required: true,
-        trim: true,
-        unique: true,
-    },
     people: [
-        []
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'UserModel',
+        }
     ],
     teamLead: {
-        type: String,
-        trim: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserModel',
         required: true,
     }
 
