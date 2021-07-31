@@ -50,7 +50,7 @@ export const createUser = async (req, res) => {
 
             await user.save()
 
-            res.status(200).json(["User added"])
+            res.status(200).json(user)
 
         } catch (error) {
             res.status(400).json([ErrorMessage.SERVER_ERROR])
@@ -104,7 +104,7 @@ export const deleteUser = async (req, res) => {
 
             try {
 
-                await UserModel.findByIdAndRemove(user._id)
+                await UserModel.findByIdAndRemove(userID)
 
                 res.status(200).json(["User Deleted"])
 
