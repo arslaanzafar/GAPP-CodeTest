@@ -7,7 +7,7 @@ const DepartmentSchema = new mongoose.Schema({
         trim: true,
         required: true,
     },
-    team: [
+    teams: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'TeamModel',
@@ -20,6 +20,16 @@ const DepartmentSchema = new mongoose.Schema({
     }
 
 });
+
+var autoPopulate = function(next) {
+    this.populate('inCharge');
+    this.populate('teams');
+    next();
+  };
+  
+  DepartmentSchema.
+    pre('findOne', autoPopulate).
+    pre('find', autoPopulate)
 
 const DepartmentModel = mongoose.model("DepartmentModel", DepartmentSchema)
 

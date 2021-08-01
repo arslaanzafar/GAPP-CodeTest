@@ -51,7 +51,7 @@ export const createTeam = async (req, res) => {
 
             await team.save()
 
-            res.status(200).json(team)
+            res.status(200).json(await TeamModel.findOne({ _id: team._id }).populate("people teamLead"))
 
         } catch (error) {
             res.status(400).json([ErrorMessage.SERVER_ERROR])

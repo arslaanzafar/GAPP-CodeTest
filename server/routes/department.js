@@ -5,10 +5,10 @@ import DepartmentModel from "../models/department.js"
 
 const router = express.Router()
 
-router.get('/departments/:teamID', getDepartment)
+router.get('/departments/:departmentID', getDepartment)
 router.post('/departments', createDepartment)
 router.get('/departments', paginate(DepartmentModel, 20), getDepartments)
-router.put('/departments/:teamID', updateDepartment)
-router.delete('/departments/:teamID', deleteDepartment)
+router.put('/departments/:departmentID', updateDepartment)
+router.delete('/departments/:departmentID', deleteDepartment)
 
 export default router

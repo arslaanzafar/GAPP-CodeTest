@@ -21,14 +21,20 @@ const Teams = () => {
 
     const [addShow, setAddShow] = useState(false);
 
-    const handleAddClose = () => setAddShow(false);
+    const handleAddClose = () => {
+        setAddShow(false);
+        setItemToAdd({
+            teamLead: "",
+            people: []
+        })
+    }
     const handleAddShow = () => setAddShow(true);
 
     const [editShow, setEditShow] = useState(false);
 
     const handleEditClose = () => {
         setEditShow(false)
-        setItemToAdd({
+        setItemToEdit({
             teamLead: "",
             people: []
         })
@@ -257,7 +263,7 @@ const Teams = () => {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            Edit User
+                            Edit Team
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

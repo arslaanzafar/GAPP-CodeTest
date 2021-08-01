@@ -9,7 +9,7 @@ export const getDepartment = async (req, res) => {
         const { departmentID } = req.params
 
         if (departmentID) {
-            await UserModel.findOne({ _id: departmentID }).exec((error, department) => {
+            await DepartmentModel.findOne({ _id: departmentID }).exec((error, department) => {
 
                 try {
                     res.status(200).json(department)
@@ -41,18 +41,15 @@ export const createDepartment = async (req, res) => {
     try {
 
         const { name, teams, inCharge } = req.body
-
         const department = new DepartmentModel({
             name: name,
             teams: teams,
             inCharge: inCharge,
         })
-
         try {
-
             await department.save()
 
-            res.status(200).json(["Department added"])
+            res.status(200).json(await DepartmentModel.findOne({ _id: department._id }).populate("inCharge teams"))
 
         } catch (error) {
             res.status(400).json([ErrorMessage.SERVER_ERROR])
@@ -73,7 +70,7 @@ export const updateDepartment = async (req, res) => {
 
         if (departmentID) {
 
-            await UserModel.findOne({ _id: departmentID }).exec(async (error, department) => {
+            await DepartmentModel.findOne({ _id: departmentID }).exec(async (error, department) => {
 
                 try {
 
@@ -83,9 +80,9 @@ export const updateDepartment = async (req, res) => {
                         inCharge: inCharge,
                     })
 
-                    await UserModel.findByIdAndUpdate(department._id, department, { new: true })
+                    await DepartmentModel.findByIdAndUpdate(department._id, department, { new: true })
 
-                    res.status(200).json(await TeamModel.findOne({ _id: departmentID }))
+                    res.status(200).json(await DepartmentModel.findOne({ _id: departmentID }))
 
                 } catch (error) {
                     res.status(400).json([ErrorMessage.SERVER_ERROR])
