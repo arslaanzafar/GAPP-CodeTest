@@ -16,6 +16,16 @@ const TeamSchema = new mongoose.Schema({
 
 });
 
+var autoPopulate = function(next) {
+    this.populate('teamLead');
+    this.populate('people');
+    next();
+  };
+  
+  TeamSchema.
+    pre('findOne', autoPopulate).
+    pre('find', autoPopulate);
+
 const TeamModel = mongoose.model("TeamModel", TeamSchema)
 
 export default TeamModel

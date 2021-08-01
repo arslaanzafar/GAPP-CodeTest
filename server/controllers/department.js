@@ -85,7 +85,7 @@ export const updateDepartment = async (req, res) => {
 
                     await UserModel.findByIdAndUpdate(department._id, department, { new: true })
 
-                    res.status(200).json(["Department Updated"])
+                    res.status(200).json(await TeamModel.findOne({ _id: departmentID }))
 
                 } catch (error) {
                     res.status(400).json([ErrorMessage.SERVER_ERROR])
@@ -110,7 +110,7 @@ export const deleteDepartment = async (req, res) => {
 
             try {
 
-                await DepartmentModel.findByIdAndRemove(department._id)
+                await DepartmentModel.findByIdAndRemove(departmentID)
 
                 res.status(200).json(["Department Deleted"])
 

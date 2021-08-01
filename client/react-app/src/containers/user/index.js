@@ -52,16 +52,19 @@ const Users = () => {
             `users/${itemToEdit?._id}`, itemToEdit
         ).then((result) => {
 
-            const index = data.findIndex((item => item.id === itemToEdit?.id))
-            setData([
-                ...data.slice(0, index),
-                {
-                    _id: itemToEdit?._id,
-                    name: itemToEdit?.name,
-                },
-                ...data.slice(index + 1)
-            ]
-            );
+            const index = data.findIndex((item => item._id === itemToEdit?._id))
+            if(index){
+                setData([
+                    ...data.slice(0, index),
+                    {
+                        _id: itemToEdit?._id,
+                        name: itemToEdit?.name,
+                    },
+                    ...data.slice(index + 1)
+                ]
+                );
+            }
+            
             handleEditClose()
         });
     }

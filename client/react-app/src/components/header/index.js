@@ -2,7 +2,7 @@ import logo from "../../logo.svg"
 
 import { Navbar, Container, Nav} from 'react-bootstrap'
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const Header = () => {
 
@@ -21,9 +21,9 @@ const Header = () => {
       GAPP CodeTest
       </Navbar.Brand>
       <Nav className="me-auto">
-      <Nav.Link href="#home">Users</Nav.Link>
-      <Nav.Link href="#features">Teams</Nav.Link>
-      <Nav.Link href="#pricing">Departments</Nav.Link>
+      <Nav.Link as={Link} to="/users">Users</Nav.Link>
+      <Nav.Link as={Link} to="/teams">Teams</Nav.Link>
+      <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
     </Nav>
     </Container>
   </Navbar>

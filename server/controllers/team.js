@@ -9,7 +9,7 @@ export const getTeam = async (req, res) => {
         const { teamID } = req.params
 
         if (teamID) {
-            await UserModel.findOne({ _id: teamID }).exec((error, team) => {
+            await TeamModel.findOne({ _id: teamID }).exec((error, team) => {
 
                 try {
                     res.status(200).json(team)
@@ -51,7 +51,7 @@ export const createTeam = async (req, res) => {
 
             await team.save()
 
-            res.status(200).json(["Team added"])
+            res.status(200).json(team)
 
         } catch (error) {
             res.status(400).json([ErrorMessage.SERVER_ERROR])
@@ -72,18 +72,20 @@ export const updateTeam = async (req, res) => {
 
         if (teamID) {
 
-            await UserModel.findOne({ _id: teamID }).exec(async (error, team) => {
+            await TeamModel.findOne({ _id: teamID })
+            .exec(async (error, team) => {
 
                 try {
 
                     team.set({ people: people,
                         teamLead: teamLead, })
 
-                    await UserModel.findByIdAndUpdate(team._id, team, { new: true })
+                    await TeamModel.findByIdAndUpdate(team._id, team, { new: true })
 
-                    res.status(200).json(["Team Updated"])
+                    res.status(200).json(await TeamModel.findOne({ _id: teamID }))
 
                 } catch (error) {
+                    console.log(error)
                     res.status(400).json([ErrorMessage.SERVER_ERROR])
                 }
 
@@ -93,6 +95,7 @@ export const updateTeam = async (req, res) => {
         }
 
     } catch (error) {
+        console.log(error)
         res.status(400).json([ErrorMessage.SERVER_ERROR])
     }
 }
@@ -106,7 +109,7 @@ export const deleteTeam = async (req, res) => {
 
             try {
 
-                await TeamModel.findByIdAndRemove(team._id)
+                await TeamModel.findByIdAndRemove(teamID)
 
                 res.status(200).json(["Team Deleted"])
 
